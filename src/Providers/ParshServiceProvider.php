@@ -12,6 +12,16 @@ class ParshServiceProvider extends ServiceProvider
         require __DIR__ . '/../../vendor/autoload.php';
         $this->setupRoutes($this->app->router);
         $this->loadViewsFrom(__DIR__.'/../../views', 'parshcms');
+
+        // publishing public assets
+        $this->publishes([
+            __DIR__.'/../../public' => public_path('yeoji/parsh-cms'),
+        ], 'public');
+
+        // publishing migrations
+        $this->publishes([
+            __DIR__.'/../../database/migrations/' => database_path('migrations')
+        ], 'migrations');
     }
 
     /**
@@ -22,7 +32,7 @@ class ParshServiceProvider extends ServiceProvider
      */
     public function setupRoutes(Router $router)
     {
-        $router->group(['namespace' => 'Yeoji\ParshCMS\Http\Controllers'], function ($router) {
+        $router->group(['prefix' => 'parsh-admin', 'namespace' => 'Yeoji\ParshCMS\Http\Controllers'], function ($router) {
             require __DIR__ . '/../Http/routes.php';
         });
     }

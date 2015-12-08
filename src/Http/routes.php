@@ -1,5 +1,7 @@
 <?php
 
-Route::get('test', function() {
-    return 'Hello World';
+Route::get('/', function() {
+    return view('parshcms::dashboard');
 });
+
+Route::resource('themes', 'ThemeController');
