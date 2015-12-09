@@ -12,6 +12,7 @@ class ParshServiceProvider extends ServiceProvider
         require __DIR__ . '/../../vendor/autoload.php';
         $this->setupRoutes($this->app->router);
         $this->loadViewsFrom(__DIR__.'/../../views', 'parshcms');
+        $this->loadViewsFrom(storage_path('app/yeoji/parshCMS/templates'), 'parshtemplates');
 
         // publishing public assets
         $this->publishes([
@@ -30,7 +31,7 @@ class ParshServiceProvider extends ServiceProvider
      * @param  \Illuminate\Routing\Router $router
      * @return void
      */
-    public function setupRoutes(Router $router)
+    private function setupRoutes(Router $router)
     {
         $router->group(['prefix' => 'parsh-admin', 'namespace' => 'Yeoji\ParshCMS\Http\Controllers'], function ($router) {
             require __DIR__ . '/../Http/routes.php';
@@ -39,7 +40,15 @@ class ParshServiceProvider extends ServiceProvider
 
     public function register()
     {
+        $this->registerStorage();
+    }
 
+    /**
+     * Registers the bindings for repositories
+     */
+    private function registerStorage()
+    {
+        $this->app->bind('\Yeoji\ParshCMS\Repositories\Interfaces\ThemeRepository', '\Yeoji\ParshCMS\Repositories\Eloquent\EloquentThemeRepository');
     }
 
 }

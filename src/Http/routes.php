@@ -4,4 +4,5 @@ Route::get('/', function() {
     return view('parshcms::dashboard');
 });
 
-Route::resource('themes', 'ThemeController');
+Route::get('/themes/{id}/preview', 'ThemeController@getPreview');
+Route::resource('themes', 'ThemeController', ['except' => 'show']);
