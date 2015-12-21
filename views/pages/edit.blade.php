@@ -25,6 +25,10 @@
             <div class="panel-body">
                 <div class="col-lg-12">
                     <div class="form-group">
+                        <label>Page Title</label>
+                        <input type="text" name="title" value="{{ $page->title }}" class="form-control"/>
+                    </div>
+                    <div class="form-group">
                         <label>Page Key</label>
                         <input type="text" name="key" value="{{ $page->key }}" class="form-control"/>
                     </div>
@@ -66,6 +70,7 @@
             type: 'PUT',
             data: {
                 _token: "{{ csrf_token() }}",
+                title: $("input[name='title']").val(),
                 key: $("input[name='key']").val(),
                 theme_id: $('#themeSelect').val(),
                 content: content

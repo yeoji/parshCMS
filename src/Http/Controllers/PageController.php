@@ -57,7 +57,7 @@ class PageController extends Controller
     {
         // find if theme exists
         $theme = $this->themes->findOrFail($request->get('theme_id'));
-        $page = $theme->addPage($request->only(['key', 'content']));
+        $page = $theme->addPage($request->only(['key', 'content', 'title']));
         if ($page) {
             return Response::json(['error' => false]);
         }
@@ -77,7 +77,11 @@ class PageController extends Controller
         }
         preg_match('/(.+)\.blade\.php/', $page->theme->filename, $name);
 
-        return view("parshcms::pages.base-template", ['themeFile' => $name[1], 'content' => $page->content->content]);
+        return view("parshcms::pages.base-template", [
+            'themeFile' => $name[1],
+            'content' => $page->content->content,
+            'title' => $page->title
+        ]);
     }
 
     /**
@@ -107,6 +111,7 @@ class PageController extends Controller
         $page->updateContent($request->get('content'));
         $page->updateTheme($theme->id);
         $page->updateKey($request->get('key'));
+        $page->updateTitle($request->get('title'));
 
         return Response::json(['error' => false]);
     }

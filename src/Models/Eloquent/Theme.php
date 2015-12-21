@@ -27,6 +27,7 @@ class Theme extends Model
     {
         // create a new page record
         $page = $this->pages()->create([
+            'title' => $pageAttributes['title'],
             'key' => $pageAttributes['key']
         ]);
         if ($page) {

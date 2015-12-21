@@ -68,4 +68,14 @@ class Page extends Model
         $this->key = $key;
         $this->save();
     }
+
+    /**
+     * Update page title
+     * @param $title
+     */
+    public function updateTitle($title)
+    {
+        $this->title = $title;
+        $this->save();
+    }
 }
