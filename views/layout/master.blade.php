@@ -8,7 +8,9 @@
     <link href="/yeoji/parsh-cms/css/bootstrap.min.css" rel="stylesheet">
     <link href="/yeoji/parsh-cms/css/datepicker3.css" rel="stylesheet">
     <link href="/yeoji/parsh-cms/css/styles.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet">
 
+    @yield('additionalCss')
     <!--Icons-->
     <script src="/yeoji/parsh-cms/js/lumino.glyphs.js"></script>
 
@@ -53,6 +55,7 @@
     });
 </script>
 
+@yield('additionalJs')
 </body>
 
 </html>

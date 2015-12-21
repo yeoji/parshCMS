@@ -49,6 +49,7 @@ class ParshServiceProvider extends ServiceProvider
     private function registerStorage()
     {
         $this->app->bind('\Yeoji\ParshCMS\Repositories\Interfaces\ThemeRepository', '\Yeoji\ParshCMS\Repositories\Eloquent\EloquentThemeRepository');
+        $this->app->bind('\Yeoji\ParshCMS\Repositories\Interfaces\PageRepository', '\Yeoji\ParshCMS\Repositories\Eloquent\EloquentPageRepository');
     }
 
 }
