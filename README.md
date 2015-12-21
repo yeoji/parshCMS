@@ -5,9 +5,13 @@ A partial page management package created for Laravel
 
 ### Laravel 5
 
+Run `composer require yeoji/parsh-cms` in your application directory
+
+Or add the following line to your `composer.json` file:
+
 ```php
 "require": {
-	"yeoji/parshCMS": "dev-master"
+	"yeoji/parsh-cms": "dev-master"
 }
 ```
 
