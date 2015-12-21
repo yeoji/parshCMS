@@ -1,8 +1,6 @@
 <?php
 namespace Yeoji\ParshCMS\Http\Requests;
 
-use App\Http\Requests\Request;
-
 class StoreThemeRequest extends Request
 {
     public function authorize()

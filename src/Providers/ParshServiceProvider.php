@@ -9,7 +9,6 @@ class ParshServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        require __DIR__ . '/../../vendor/autoload.php';
         $this->setupRoutes($this->app->router);
         $this->loadViewsFrom(__DIR__.'/../../views', 'parshcms');
         $this->loadViewsFrom(storage_path('app/yeoji/parshCMS/templates'), 'parshtemplates');

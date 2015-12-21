@@ -1,7 +1,6 @@
 <?php
 namespace Yeoji\ParshCMS\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Yeoji\ParshCMS\Repositories\Interfaces\PageRepository;
