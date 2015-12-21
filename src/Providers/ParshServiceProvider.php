@@ -22,6 +22,11 @@ class ParshServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../../database/migrations/' => database_path('migrations')
         ], 'migrations');
+
+        // publishing config
+        $this->publishes([
+            __DIR__.'/../../config/parshcms.php' => config_path('parshcms.php'),
+        ]);
     }
 
     /**
@@ -32,7 +37,7 @@ class ParshServiceProvider extends ServiceProvider
      */
     private function setupRoutes(Router $router)
     {
-        $router->group(['prefix' => 'parsh-admin', 'namespace' => 'Yeoji\ParshCMS\Http\Controllers'], function ($router) {
+        $router->group(['prefix' => config('parshcms.route'), 'middleware' => config('parshcms.middleware'), 'namespace' => 'Yeoji\ParshCMS\Http\Controllers'], function ($router) {
             require __DIR__ . '/../Http/routes.php';
         });
         // Catch-all static page render route

@@ -39,7 +39,7 @@ All styles should be in your application's public folder, or on a CDN.
 
 The navigation bar is automatically generated for each page that has been created.
 
-In order to change this, create the file `vendor/yeoji/parshCMS/custom/navigation.blade.php` under your application's `resources/views` directory.
+In order to change this, create the file `vendor/parshcms/custom/navigation.blade.php` under your application's `resources/views` directory.
 
 The default navigation is a simple:
 
