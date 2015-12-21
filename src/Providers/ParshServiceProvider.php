@@ -35,6 +35,8 @@ class ParshServiceProvider extends ServiceProvider
         $router->group(['prefix' => 'parsh-admin', 'namespace' => 'Yeoji\ParshCMS\Http\Controllers'], function ($router) {
             require __DIR__ . '/../Http/routes.php';
         });
+        // Catch-all static page render route
+        $router->get('{all}', 'Yeoji\ParshCMS\Http\Controllers\PageController@show')->where('all', '[a-zA-Z0-9\-\/\_]*');
     }
 
     public function register()

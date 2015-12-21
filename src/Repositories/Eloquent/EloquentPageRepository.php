@@ -48,4 +48,14 @@ class EloquentPageRepository implements PageRepository
     {
         return Page::destroy($id);
     }
+
+    /**
+     * Finds the Page model with the specified key
+     * @param $key
+     * @return mixed
+     */
+    public function findByKey($key)
+    {
+        return Page::where('key', $key)->first();
+    }
 }

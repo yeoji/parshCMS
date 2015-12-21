@@ -2,6 +2,7 @@
 namespace Yeoji\ParshCMS\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Yeoji\ParshCMS\Repositories\Interfaces\PageRepository;
 use Yeoji\ParshCMS\Repositories\Interfaces\ThemeRepository;
@@ -64,15 +65,62 @@ class PageController extends Controller
     }
 
     /**
-     * Shows the page
-     * @param $id
+     * Shows the page matching the page key
+     * @param $key
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show($key)
     {
-        $page = $this->pages->findOrFail($id);
+        $page = $this->pages->findByKey($key);
+        if(!$page) {
+            abort(404);
+        }
         preg_match('/(.+)\.blade\.php/', $page->theme->filename, $name);
 
         return view("parshcms::pages.base-template", ['themeFile' => $name[1], 'content' => $page->content->content]);
+    }
+
+    /**
+     * Shows the form to update the page
+     * GET /page/{id}/edit
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit($id)
+    {
+        $page = $this->pages->findOrFail($id);
+        return view("parshcms::pages.edit", ['page' => $page, 'themes' => $this->themes->all()]);
+    }
+
+    /**
+     * Updates the page record in the database
+     * PUT /pages/{id}
+     * @param $id
+     * @param Request $request
+     */
+    public function update($id, Request $request)
+    {
+        // find if theme and page exists
+        $page = $this->pages->findOrFail($id);
+        $theme = $this->themes->findOrFail($request->get('theme_id'));
+
+        $page->updateContent($request->get('content'));
+        $page->updateTheme($theme->id);
+        $page->updateKey($request->get('key'));
+
+        return Response::json(['error' => false]);
+    }
+
+    /**
+     * Deletes the page
+     * DELETE /pages/{id}
+     * @param $id
+     */
+    public function destroy($id)
+    {
+        $page = $this->pages->findOrFail($id);
+        $page->deletePage();
+
+        return Redirect::to('/parsh-admin/pages')->with('message', 'Page has been deleted');
     }
 }

@@ -5,38 +5,44 @@
 @endsection
 
 @section('content')
-@include('parshcms::partials.messages')
-
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">Add a New Page</h1>
+        <h1 class="page-header">Edit {{ $page->key }}</h1>
     </div>
 </div><!--/.row-->
 
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
+            <div class="panel-heading">
+                <form method="post"
+                      action="{{ action('\Yeoji\ParshCMS\Http\Controllers\PageController@destroy', ['id' => $page->id ]) }}">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="_method" value="DELETE"/>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
             <div class="panel-body">
                 <div class="col-lg-12">
                     <div class="form-group">
                         <label>Page Key</label>
-                        <input type="text" name="key" class="form-control"/>
+                        <input type="text" name="key" value="{{ $page->key }}" class="form-control"/>
                     </div>
                     <div class="form-group">
                         <label>Theme</label>
                         <select id="themeSelect" class="form-control">
                             @foreach($themes as $theme)
-                            <option value="{{ $theme->id }}">{{ $theme->title }}</option>
+                            <option value="{{ $theme->id }}" {{ $page->theme_id == $theme->id ? 'selected' : '' }}>{{ $theme->title }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
                         <label>Template File</label>
 
-                        <div id="summernote"></div>
+                        <div id="summernote">{!! $page->content->content !!}</div>
                     </div>
                     <br/>
-                    <button type="button" class="btn btn-success" id="pageSubmit">Submit</button>
+                    <button type="button" class="btn btn-success" id="pageUpdate">Update</button>
                 </div>
             </div>
         </div>
@@ -54,10 +60,10 @@
     });
 
     // handle retrieval of markup and submitting the form
-    $('#pageSubmit').click(function () {
+    $('#pageUpdate').click(function () {
         var content = $('#summernote').summernote('code');
-        $.ajax("{{ action('\Yeoji\ParshCMS\Http\Controllers\PageController@store') }}", {
-            type: 'POST',
+        $.ajax("{{ action('\Yeoji\ParshCMS\Http\Controllers\PageController@update', ['id' => $page->id]) }}", {
+            type: 'PUT',
             data: {
                 _token: "{{ csrf_token() }}",
                 key: $("input[name='key']").val(),
@@ -66,12 +72,11 @@
             }
         })
             .done(function (res) {
-                if (res.error) {
-                    $('#alertError').text(res.message);
-                    $('#alertError').show();
-                } else {
+                if (!res.error) {
                     location.reload();
                 }
+                $('#alertError').text('Something went wrong. Please try again!');
+                $('#alertError').show();
             });
     });
 </script>

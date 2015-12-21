@@ -26,4 +26,46 @@ class Page extends Model
     {
         return $this->hasOne(PageContent::class);
     }
+
+    /**
+     * Handles the deletion of the page's content
+     * and the page record from the database
+     * @throws \Exception
+     */
+    public function deletePage()
+    {
+        $this->content->delete();
+        $this->delete();
+    }
+
+    /**
+     * Updates the page's content
+     * @param $content
+     */
+    public function updateContent($content)
+    {
+        $currentContent = $this->content;
+        $currentContent->content = $content;
+        $currentContent->save();
+    }
+
+    /**
+     * Update the page theme
+     * @param $themeId
+     */
+    public function updateTheme($themeId)
+    {
+        $this->theme_id = $themeId;
+        $this->save();
+    }
+
+    /**
+     * Update page key
+     * @param $key
+     */
+    public function updateKey($key)
+    {
+        $this->key = $key;
+        $this->save();
+    }
 }
