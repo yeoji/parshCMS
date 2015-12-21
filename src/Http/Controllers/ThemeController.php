@@ -60,7 +60,7 @@ class ThemeController extends Controller
                 'filename' => $filename
             ]);
 
-            return Redirect::to('/parsh-admin/themes')->with('message', 'New template added!');
+            return Redirect::to('/'.config('parshcms.route').'/themes')->with('message', 'New template added!');
         }
 
         return Redirect::back()->withErrors(['Template file format has to be *.blade.php']);
@@ -91,7 +91,7 @@ class ThemeController extends Controller
         $theme->title = $request->get('title');
         $theme->save();
 
-        return Redirect::to('/parsh-admin/themes')->with('message', 'Template has been updated.');
+        return Redirect::to('/'.config('parshcms.route').'/themes')->with('message', 'Template has been updated.');
     }
 
     /**
@@ -106,7 +106,7 @@ class ThemeController extends Controller
         Storage::disk('local')->delete('yeoji/parshCMS/templates/' . $theme->filename);
         $this->themes->delete($id);
 
-        return Redirect::to('/parsh-admin/themes')->with('message', 'Template has been deleted');
+        return Redirect::to('/'.config('parshcms.route').'/themes')->with('message', 'Template has been deleted');
     }
 
     /**

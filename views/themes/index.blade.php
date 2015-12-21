@@ -23,7 +23,7 @@
                 {{ $theme->title }} <a href="themes/{{$theme->id}}/edit" class="btn btn-default">Edit</a>
             </div>
             <div class="panel-body">
-                <iframe style="width: 100%; height: 350px" src='{{ "/parsh-admin/themes/{$theme->id}/preview" }}' scrolling="no"></iframe>
+                <iframe style="width: 100%; height: 350px" src='{{ "/".config("parshcms.route")."/themes/{$theme->id}/preview" }}' scrolling="no"></iframe>
             </div>
         </div>
     </div>

@@ -23,7 +23,7 @@
                 {{ $page->key }} <a href="pages/{{$page->id}}/edit" class="btn btn-default">Edit</a> <a href="/{{ $page->key }}" class="btn btn-default">Show Page</a>
             </div>
             <div class="panel-body">
-                <iframe style="width: 100%; height: 350px" src='{{ "/parsh-admin/pages/{$page->key}" }}' scrolling="no"></iframe>
+                <iframe style="width: 100%; height: 350px" src='{{ "/".config('parshcms.route')."/pages/{$page->key}" }}' scrolling="no"></iframe>
             </div>
         </div>
     </div>

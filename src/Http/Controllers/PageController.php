@@ -126,6 +126,6 @@ class PageController extends Controller
         $page = $this->pages->findOrFail($id);
         $page->deletePage();
 
-        return Redirect::to('/parsh-admin/pages')->with('message', 'Page has been deleted');
+        return Redirect::to('/'.config('parshcms.route').'/pages')->with('message', 'Page has been deleted');
     }
 }
