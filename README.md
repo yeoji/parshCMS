@@ -15,7 +15,7 @@ In your application's `app/config/app.php` file:
 
 Add this line to the `service providers` array:
 
-	'Yeoji\ParshCMS\Providers\ParshServiceProvider::class'
+	Yeoji\ParshCMS\Providers\ParshServiceProvider::class
 
 Run the following command to publish the migrations and public files.
 
@@ -43,9 +43,11 @@ In order to change this, create the file `vendor/parshcms/custom/navigation.blad
 
 The default navigation is a simple:
 
-```@foreach($pages->all() as $page)
+```
+@foreach($pages->all() as $page)
    <li><a href="/{{ $page->key }}">{{$page->title}}</a></li>
-   @endforeach```
+@endforeach
+```
 
 In your newly created `custom/navigation.blade.php` file, you are free to do whatever you want your navigation bar to be.
 
