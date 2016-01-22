@@ -33,9 +33,7 @@
 <script src="/yeoji/parsh-cms/js/jquery-1.11.1.min.js"></script>
 <script src="/yeoji/parsh-cms/js/bootstrap.min.js"></script>
 <script src="/yeoji/parsh-cms/js/chart.min.js"></script>
-<script src="/yeoji/parsh-cms/js/chart-data.js"></script>
 <script src="/yeoji/parsh-cms/js/easypiechart.js"></script>
-<script src="/yeoji/parsh-cms/js/easypiechart-data.js"></script>
 <script src="/yeoji/parsh-cms/js/bootstrap-datepicker.js"></script>
 <script>
     $('#calendar').datepicker({});

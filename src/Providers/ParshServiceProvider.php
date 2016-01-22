@@ -56,6 +56,7 @@ class ParshServiceProvider extends ServiceProvider
     {
         $this->app->bind('\Yeoji\ParshCMS\Repositories\Interfaces\ThemeRepository', '\Yeoji\ParshCMS\Repositories\Eloquent\EloquentThemeRepository');
         $this->app->bind('\Yeoji\ParshCMS\Repositories\Interfaces\PageRepository', '\Yeoji\ParshCMS\Repositories\Eloquent\EloquentPageRepository');
+        $this->app->bind('\Yeoji\ParshCMS\Repositories\Interfaces\PageCategoryRepository', '\Yeoji\ParshCMS\Repositories\Eloquent\EloquentPageCategoryRepository');
     }
 
 }

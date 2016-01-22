@@ -2,6 +2,7 @@
 
 @section('additionalCss')
 <link href="/yeoji/parsh-cms/css/summernote.css" rel="stylesheet">
+<link href="/yeoji/parsh-cms/css/select2.min.css" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -33,6 +34,12 @@
                         <input type="text" name="key" value="{{ $page->key }}" class="form-control"/>
                     </div>
                     <div class="form-group">
+                        <label>Page Category</label>
+                        <select name="category_id" id="categorySelect" class="form-control">
+                            <option value="{{ $page->category_id }}" selected="selected">{{ $page->category->name }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label>Theme</label>
                         <select id="themeSelect" class="form-control">
                             @foreach($themes as $theme)
@@ -56,12 +63,54 @@
 
 @section('additionalJs')
 <script src="/yeoji/parsh-cms/js/summernote.min.js"></script>
+<script src="/yeoji/parsh-cms/js/select2.min.js"></script>
 <script>
     $(document).ready(function () {
         $('#summernote').summernote({
             height: 400
         });
+
+        $('#categorySelect').select2({
+            ajax: {
+                url: "{{ action('\Yeoji\ParshCMS\Http\Controllers\PageCategoryController@getSearch') }}",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term // search term
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: data
+                    };
+                },
+                cache: true
+            },
+            escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+            minimumInputLength: 3,
+            templateResult: formatCategoryResult,
+            templateSelection: formatCategorySelection
+        })
+            .on('select2:select', function(e) {
+                $.ajax("{{ action('\Yeoji\ParshCMS\Http\Controllers\PageCategoryController@postCreate') }}", {
+                    type: 'POST',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        name: e.params.data.name
+                    }
+                });
+            });
     });
+
+    function formatCategoryResult(category) {
+        if(category.loading) return category.text;
+        return "<div class='clearfix'>"+ category.name +"</div>";
+    }
+
+    function formatCategorySelection(category) {
+        return category.name;
+    }
 
     // handle retrieval of markup and submitting the form
     $('#pageUpdate').click(function () {

@@ -58,4 +58,15 @@ class EloquentPageRepository implements PageRepository
     {
         return Page::where('key', $key)->first();
     }
+
+    /**
+     * Returns all the pages, grouped by categories if it belongs to any.
+     * @return mixed
+     */
+    public function getGroupedPages()
+    {
+        return Page::with('category')->get()->groupBy(function($item, $key) {
+            return $item->category ? $item->category->name : '0';
+        });
+    }
 }
