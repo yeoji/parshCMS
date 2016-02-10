@@ -79,7 +79,7 @@
                     $('#alertError').text(res.message);
                     $('#alertError').show();
                 } else {
-                    location.reload();
+                    location.assign("{{ action('\Yeoji\ParshCMS\Http\Controllers\PageController@index') }}");
                 }
             });
     });
