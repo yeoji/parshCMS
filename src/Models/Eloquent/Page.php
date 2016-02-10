@@ -28,15 +28,6 @@ class Page extends Model
     }
 
     /**
-     * A page can belong to one category
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function category()
-    {
-        return $this->belongsTo(PageCategory::class);
-    }
-
-    /**
      * Handles the deletion of the page's content
      * and the page record from the database
      * @throws \Exception

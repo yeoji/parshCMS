@@ -10,9 +10,4 @@ interface PageRepository extends RESTRepository
      */
     public function findByKey($key);
 
-    /**
-     * Returns all the pages, grouped by categories if it belongs to any.
-     * @return mixed
-     */
-    public function getGroupedPages();
 }

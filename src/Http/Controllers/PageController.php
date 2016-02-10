@@ -4,7 +4,6 @@ namespace Yeoji\ParshCMS\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
-use Yeoji\ParshCMS\Repositories\Interfaces\PageCategoryRepository;
 use Yeoji\ParshCMS\Repositories\Interfaces\PageRepository;
 use Yeoji\ParshCMS\Repositories\Interfaces\ThemeRepository;
 
@@ -18,21 +17,15 @@ class PageController extends Controller
      * @var ThemeRepository
      */
     protected $themes;
-    /**
-     * @var PageCategoryRepository
-     */
-    protected $categories;
 
     /**
      * @param PageRepository $pages
      * @param ThemeRepository $themes
-     * @param PageCategoryRepository $categories
      */
-    public function __construct(PageRepository $pages, ThemeRepository $themes, PageCategoryRepository $categories)
+    public function __construct(PageRepository $pages, ThemeRepository $themes)
     {
         $this->pages = $pages;
         $this->themes = $themes;
-        $this->categories = $categories;
     }
 
     /**
@@ -64,8 +57,7 @@ class PageController extends Controller
     {
         // find if theme exists
         $theme = $this->themes->findOrFail($request->get('theme_id'));
-        $category = $request->has('category_id') ? $this->categories->findOrFail($request->get('category_id')) : null;
-        $page = $theme->addPage($request->only(['key', 'content', 'title']), $category);
+        $page = $theme->addPage($request->only(['key', 'content', 'title']));
         if ($page) {
             return Response::json(['error' => false]);
         }

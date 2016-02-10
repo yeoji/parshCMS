@@ -8,4 +8,3 @@ Route::get('/themes/{id}/preview', 'ThemeController@getPreview');
 Route::resource('themes', 'ThemeController', ['except' => 'show']);
 
 Route::resource('pages', 'PageController');
-Route::controller('page-categories', 'PageCategoryController');
