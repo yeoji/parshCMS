@@ -15,7 +15,7 @@ class CreatePageContentsTable extends Migration
         Schema::create('page_contents', function(Blueprint $table) {
             $table->increments('id')->index();
             $table->integer('page_id')->unsigned();
-            $table->text('content');
+            $table->mediumText('content');
             $table->timestamps();
         });
     }
