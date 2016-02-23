@@ -11,14 +11,14 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <form method="post" action="{{ action('\Yeoji\ParshCMS\Http\Controllers\ThemeController@destroy', ['id' => $theme->id ]) }}">
+                <form method="post" action="{{  '/' . config('parshcms.route') . '/themes/' . $theme->id  }}">
                     {{ csrf_field() }}
                     <input type="hidden" name="_method" value="DELETE"/>
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
             </div>
             <div class="panel-body">
-                <form method="post" action="{{ action('\Yeoji\ParshCMS\Http\Controllers\ThemeController@update', ['id' => $theme->id ]) }}">
+                <form method="post" action="{{ '/' . config('parshcms.route') . '/themes/' . $theme->id }}">
                     {{ csrf_field() }}
                     <input type="hidden" name="_method" value="PUT"/>
                     <div class="col-lg-6">

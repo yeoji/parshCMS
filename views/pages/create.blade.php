@@ -2,7 +2,6 @@
 
 @section('additionalCss')
 <link href="/yeoji/parsh-cms/css/summernote.css" rel="stylesheet">
-<link href="/yeoji/parsh-cms/css/select2.min.css" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -51,7 +50,6 @@
 
 @section('additionalJs')
 <script src="/yeoji/parsh-cms/js/summernote.min.js"></script>
-<script src="/yeoji/parsh-cms/js/select2.min.js"></script>
 <script>
     $(document).ready(function () {
         $('#summernote').summernote({
@@ -63,7 +61,7 @@
     // handle retrieval of markup and submitting the form
     $('#pageSubmit').click(function () {
         var content = $('#summernote').summernote('code');
-        $.ajax("{{ action('\Yeoji\ParshCMS\Http\Controllers\PageController@store') }}", {
+        $.ajax("{{ '/' . config('parshcms.route') . '/pages' }}", {
             type: 'POST',
             data: {
                 _token: "{{ csrf_token() }}",

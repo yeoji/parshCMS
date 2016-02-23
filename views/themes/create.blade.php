@@ -13,7 +13,7 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-body">
-                <form method="post" action="{{ action('\Yeoji\ParshCMS\Http\Controllers\ThemeController@store') }}" enctype="multipart/form-data">
+                <form method="post" action="{{  '/' . config('parshcms.route') . '/themes'  }}" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="col-lg-6">
                         <div class="form-group">
